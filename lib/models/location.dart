@@ -7,7 +7,6 @@ class Location {
   Location(this.lat, this.lng);
 
   factory Location.fromJson(Map<dynamic, dynamic> json) {
-    return Location(json['geometry']['location']['lat'],
-        json['geometry']['location']['lng']);
+    return Location(json['lat'], json['lng']);
   }
 }
