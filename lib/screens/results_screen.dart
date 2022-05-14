@@ -37,9 +37,10 @@ class _ResultsScreenState extends State<ResultsScreen> {
                     return Card(
                         child: ListTile(
                             onTap: () {
-                              Navigator.pushNamed(context, '/details_screen',arguments: {
-                                'index':index,
-                              });
+                              Navigator.pushNamed(context, '/details_screen',
+                                  arguments: {
+                                    'index': index,
+                                  });
                             },
                             title: Text(
                               applicationBloc.pharmacies[index].name,
@@ -89,7 +90,9 @@ class _ResultsScreenState extends State<ResultsScreen> {
           ),
         ),
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/map_screen');
+          },
           label: const Text("Map"),
           icon: const Icon(Icons.map_outlined),
           backgroundColor: Colors.green,
