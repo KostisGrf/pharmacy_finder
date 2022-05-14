@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:pharmacy_finder/screens/details_screen.dart';
 import 'package:pharmacy_finder/screens/home_screen.dart';
+import 'package:pharmacy_finder/screens/map_screen.dart';
 import 'package:pharmacy_finder/screens/results_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:pharmacy_finder/blocs/application_bloc.dart';
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
             routes: {
               '/': (context) => const HomeScreen(),
               '/results_screen': (context) => const ResultsScreen(),
-              '/details_screen':(context)=>const DetailsScreen()
+              '/details_screen':(context)=>const DetailsScreen(),
+              '/map_screen':(context) =>const MapScreen()
             }));
   }
 }
