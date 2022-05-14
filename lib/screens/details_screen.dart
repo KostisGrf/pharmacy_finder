@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pharmacy_finder/blocs/application_bloc.dart';
+import 'package:pharmacy_finder/services/marker_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -15,6 +16,8 @@ class DetailsScreen extends StatelessWidget {
     final applicationBloc = Provider.of<ApplicationBloc>(context);
     final details = ModalRoute.of(context)!.settings.arguments as Map;
     final pharmacy = applicationBloc.pharmacies[details['index']];
+    final markerService = MarkerService();
+    var marker = markerService.getSingleMarker(pharmacy);
 
     return Scaffold(
       body: Stack(
@@ -120,6 +123,7 @@ class DetailsScreen extends StatelessWidget {
                       pharmacy.geometry.location.lng),
                   zoom: 16.0),
               zoomGesturesEnabled: true,
+              markers: marker,
             ),
           )
         ],
