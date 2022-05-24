@@ -4,11 +4,15 @@ import 'package:pharmacy_finder/blocs/application_bloc.dart';
 class FilledOutlineText extends StatelessWidget {
   const FilledOutlineText({
     Key? key,
-    required this.applicationBloc, required this.index,
+    required this.icon,
+    required this.text,
+    required this.color,
   }) : super(key: key);
 
-  final ApplicationBloc applicationBloc;
-  final int index;
+  
+  final IconData icon;
+  final String text;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -16,32 +20,15 @@ class FilledOutlineText extends StatelessWidget {
       width: 80,
       height: 30,
       alignment: Alignment.center,
-      child: (applicationBloc
-              .pharmacies[index].openNow)
-          ? Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceEvenly,
-              children: const [
-                Icon(Icons.access_time),
-                Text(
-                  "Open",
-                ),
-              ],
-            )
-          : Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceEvenly,
-              children: const [
-                  Icon(Icons.access_time),
-                  Text("Closed"),
-                ]),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Icon(icon),
+          Text(text),
+        ],
+      ),
       decoration: BoxDecoration(
-          color: applicationBloc
-                  .pharmacies[index].openNow
-              ? Colors.green[400]
-              : Colors.red,
-          borderRadius:
-              BorderRadius.circular(30.0)),
+          color: color, borderRadius: BorderRadius.circular(30.0)),
     );
   }
 }
