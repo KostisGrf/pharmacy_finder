@@ -14,27 +14,14 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  // BitmapDescriptor? customMarker;
-
-  // Future<void> setCustomMarker() async {
-  //   customMarker = await BitmapDescriptor.fromAssetImage(
-  //       const ImageConfiguration(), 'assets/images/pharmacy-icon.png');
-  // }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // setCustomMarker();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
     final applicationBloc = Provider.of<ApplicationBloc>(context);
     final markerService = MarkerService();
 
-    var markers =
-        markerService.getMarkers(applicationBloc.pharmacies);
+    var markers = markerService.getMarkers(applicationBloc.pharmacies);
     return SafeArea(
       child: Scaffold(
         body: GoogleMap(
@@ -42,7 +29,7 @@ class _MapScreenState extends State<MapScreen> {
               target: LatLng(
                   applicationBloc.cityLocation!.geometry.location.lat,
                   applicationBloc.cityLocation!.geometry.location.lng),
-              zoom: 15.5),
+              zoom: 14.5),
           zoomGesturesEnabled: true,
           markers: Set<Marker>.of(markers),
         ),

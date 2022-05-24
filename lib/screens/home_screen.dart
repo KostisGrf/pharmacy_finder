@@ -14,8 +14,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  mapPharmacies(BuildContext context, applicationBloc) {
-    Provider.of<ApplicationBloc>(context, listen: false).setPharmacies(
+  mapPharmacies(BuildContext context, applicationBloc) async {
+    await Provider.of<ApplicationBloc>(context, listen: false).setPharmacies(
         lat: applicationBloc.cityLocation.geometry.location.lat,
         lng: applicationBloc.cityLocation.geometry.location.lng);
   }
@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final _textEditingController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext mainContext) {
     final applicationBloc = Provider.of<ApplicationBloc>(context);
 
     return Scaffold(
@@ -63,7 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     onChanged: (value) {
                       Provider.of<ApplicationBloc>(context, listen: false)
                           .searchPlaces(value);
-                    
                     },
                     decoration: InputDecoration(
                       hintText: "Search Location",
@@ -129,9 +128,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .setCurrentLocation();
 
                             await mapPharmacies(context, applicationBloc);
-
-                            Navigator.pushNamed(context, '/results_screen');
                             context.loaderOverlay.hide();
+                            Navigator.pushNamed(mainContext, '/results_screen');
                           },
                           icon: const Icon(
                             // FontAwesomeIcons.locationArrow,
@@ -167,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     return ListTile(
                                         onTap: () async {
                                           _textEditingController.clear();
-                                          context.loaderOverlay.show();
+                                          mainContext.loaderOverlay.show();
                                           applicationBloc
                                               .setLocationPref(false);
                                           await Provider.of<ApplicationBloc>(
@@ -178,10 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   .placeId);
                                           await mapPharmacies(
                                               context, applicationBloc);
-
+                                          mainContext.loaderOverlay.hide();
                                           Navigator.pushNamed(
-                                              context, '/results_screen');
-                                          context.loaderOverlay.hide();
+                                              mainContext, '/results_screen');
                                         },
                                         title: Text(
                                           applicationBloc

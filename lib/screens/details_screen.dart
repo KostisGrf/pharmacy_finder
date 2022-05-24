@@ -45,7 +45,7 @@ class DetailsScreen extends StatelessWidget {
             top: (height / 2.41) - 20,
             child: Container(
               padding: EdgeInsets.only(
-                  left: width / 20, right: width / 20, top: height / 20),
+                  left: width / 20, right: width / 20, top: height / 35),
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(30),
@@ -72,15 +72,37 @@ class DetailsScreen extends StatelessWidget {
                         const SizedBox(
                           width: 8.0,
                         ),
+                        Expanded(
+                          child: Text(
+                            pharmacy.vicinity,
+                            style:
+                                TextStyle(color: Colors.black.withOpacity(0.6)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.phone,
+                          color: Colors.green.withOpacity(0.8),
+                          size: 25.0,
+                        ),
+                        const SizedBox(
+                          width: 8.0,
+                        ),
                         Text(
-                          pharmacy.vicinity,
+                          pharmacy.phoneNumber!,
                           style:
                               TextStyle(color: Colors.black.withOpacity(0.6)),
                         ),
                       ],
                     ),
                     const SizedBox(
-                      height: 15.0,
+                      height: 10.0,
                     ),
                     pharmacy.rating != null
                         ? Row(
@@ -91,7 +113,7 @@ class DetailsScreen extends StatelessWidget {
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 5,
-                                itemSize: 25,
+                                itemSize: 20,
                                 itemPadding:
                                     const EdgeInsets.symmetric(horizontal: 4.0),
                                 itemBuilder: (context, _) => const Icon(
@@ -107,7 +129,7 @@ class DetailsScreen extends StatelessWidget {
                             ],
                           )
                         : Row(),
-                    SizedBox(
+                    const SizedBox(
                       height: 40.0,
                     ),
                   ]),
@@ -116,7 +138,7 @@ class DetailsScreen extends StatelessWidget {
           Positioned.fill(
             left: 0,
             right: 0,
-            top: (height / 1.6),
+            top: (height / 1.5),
             child: GoogleMap(
               initialCameraPosition: CameraPosition(
                   target: LatLng(pharmacy.geometry.location.lat,
@@ -131,14 +153,3 @@ class DetailsScreen extends StatelessWidget {
     );
   }
 }
-
-
-//  Expanded(
-//           child: GoogleMap(
-//             initialCameraPosition: CameraPosition(
-//                 target: LatLng(pharmacy.geometry.location.lat,
-//                     pharmacy.geometry.location.lng),
-//                 zoom: 16.0),
-//             zoomGesturesEnabled: true,
-//           ),
-//         )

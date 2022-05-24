@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:pharmacy_finder/constraints.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:pharmacy_finder/constants.dart';
 import 'package:provider/provider.dart';
 import '../blocs/application_bloc.dart';
 import 'package:pharmacy_finder/widgets/filled_outline_text.dart';
+import 'package:pharmacy_finder/widgets/filled_outline_button.dart';
 
 class ResultsScreen extends StatefulWidget {
   const ResultsScreen({Key? key}) : super(key: key);
@@ -12,6 +14,8 @@ class ResultsScreen extends StatefulWidget {
 }
 
 class _ResultsScreenState extends State<ResultsScreen> {
+  bool isSelected = false;
+
   @override
   Widget build(BuildContext context) {
     final applicationBloc = Provider.of<ApplicationBloc>(context);
@@ -27,6 +31,33 @@ class _ResultsScreenState extends State<ResultsScreen> {
               Container(
                 height: MediaQuery.of(context).size.height / 10,
                 color: Colors.green,
+                padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FillOutlineButton(
+                      press: () {
+                        applicationBloc.toggleChoiceChip("All");
+                      },
+                      text: "All",
+                      isFilled: applicationBloc.selectedChip == "All",
+                    ),
+                    FillOutlineButton(
+                      press: () {
+                        applicationBloc.toggleChoiceChip("Open");
+                      },
+                      text: "Open",
+                      isFilled: applicationBloc.selectedChip == "Open",
+                    ),
+                    FillOutlineButton(
+                      press: () {
+                        applicationBloc.toggleChoiceChip("On duty");
+                      },
+                      text: "On duty",
+                      isFilled: applicationBloc.selectedChip == "On duty",
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(
                 height: 10.0,
@@ -59,10 +90,29 @@ class _ResultsScreenState extends State<ResultsScreen> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                FilledOutlineText(
-                                  applicationBloc: applicationBloc,
-                                  index: index,
-                                ),
+                                Row(
+                                  children: [
+                                    applicationBloc.pharmacies[index].openNow
+                                        ? const FilledOutlineText(
+                                            text: "Open",
+                                            color: Colors.green,
+                                            icon: Icons.access_time)
+                                        : const FilledOutlineText(
+                                            text: "Closed",
+                                            color: Colors.red,
+                                            icon: Icons.access_time,
+                                          ),
+                                    const SizedBox(
+                                      width: 5.0,
+                                    ),
+                                    if (applicationBloc
+                                        .pharmacies[index].onDuty)
+                                      const FilledOutlineText(
+                                          text: "On duty",
+                                          color: Colors.blue,
+                                          icon: Icons.more_time)
+                                  ],
+                                )
                               ],
                             ),
                             trailing: (applicationBloc.searchWithCurrent)
