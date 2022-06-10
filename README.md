@@ -15,19 +15,19 @@
   </h3>
   
 
-  <hr>
+  
 
   ## Quick start
 
 This is a flutter app for locating pharmacies using google maps APIs places and autocomplete.
 
-<hr>
+
 
 ## Demo video
 
 You can watch a demo video of the app [here](https://www.youtube.com/watch?v=lpwxw9bXUoY&feature=youtu.be)
 
-<hr>
+
 
 ## Check out
 Also check out the [repository](https://github.com/KostisGrf/pharmacy_finder_scraper) of the web scraper for the on duty pharmacies
