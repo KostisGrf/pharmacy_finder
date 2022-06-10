@@ -3,14 +3,8 @@ import 'package:flutter_config/flutter_config.dart';
 import 'dart:convert' as convert;
 
 class OnDutyService {
-  Future<String?> getPhoneNumber(String placeId) async {
-    var url =
-        "https://maps.googleapis.com/maps/api/place/details/json?fields=formatted_phone_number&place_id=$placeId&key=${FlutterConfig.get('API_KEY')}";
-    var response = await http.get(Uri.parse(url));
-    var data = convert.jsonDecode(response.body);
-    var result = data['result']['formatted_phone_number'];
-    return result;
-  }
+  
+  
 
   Future<List<dynamic>> getPharmacyDuties(
       {required double lat, required double lng}) async {
